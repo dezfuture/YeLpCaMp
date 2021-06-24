@@ -1,3 +1,5 @@
+// The main reason we make this index file is because it's gonna connect to mongoose and also use our model ALSO anytime you wanna seed the database just run -> 'node seeds/index.js'.
+
 const mongoose = require("mongoose");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelpers");
@@ -25,7 +27,7 @@ const seedDB = async () => {
     const camp = new Campground({
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
-      // ye 1600x900 hta bhi skte ho
+      // ye 1600x900 hta bhi skte ho, here we have used the unsplash API
       image: "http://source.unsplash.com/collection/483251",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",

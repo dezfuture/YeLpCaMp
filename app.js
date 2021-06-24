@@ -27,6 +27,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// app.use allows us to run code on every single requests
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
@@ -82,7 +83,9 @@ app.post(
 app.get(
   "/campgrounds/:id",
   catchAsync(async (req, res) => {
-    const campground = await Campground.findById(req.params.id);
+    const campground = await (
+      await Campground.findById(req.params.id)
+    ).populate("reviews");
     res.render("campgrounds/show", { campground });
   })
 );
