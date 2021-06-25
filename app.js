@@ -12,6 +12,7 @@ mongoose.connect("mongodb://localhost:27017/yellycampo", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
+  useFindAndModify: false, // just to get rid of that mongoose deprecation warning
 });
 
 const db = mongoose.connection;
@@ -29,7 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 // app.use allows us to run code on every single requests
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
-
+app.use(express.static(path.join(__dirname, "public")));
 app.use("/campgrounds", campgrounds);
 app.use("/campgrounds/:id/reviews", reviews);
 
