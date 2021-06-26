@@ -43,6 +43,7 @@ router.post(
   }),
   (req, res) => {
     req.flash("success", "welcome back!");
+    //   here is where we store that url user was initially referring to.
     const redirectUrl = req.session.returnTo || "/campgrounds";
     delete req.session.returnTo;
     res.redirect(redirectUrl);
