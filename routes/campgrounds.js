@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const catchAsync = require("../utils/catchAsync");
-const ExpressError = require("../utils/ExpressError");
 const Campground = require("../models/campground");
 const { isLoggedIn, validateCampground, isAuthor } = require("../middleware");
 
@@ -37,7 +36,7 @@ router.get(
   "/:id",
   catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
-      .populate("reviews")
+      .populate({ path: "reviews", populate: { path: "author" } })
       .populate("author");
     if (!campground) {
       req.flash("error", "Cannot find that campground!");
@@ -71,7 +70,7 @@ router.put(
   catchAsync(async (req, res) => {
     const { id } = req.params;
 
-    const camp = await Campground.findByIdAndUpdate(id, {
+    const campground = await Campground.findByIdAndUpdate(id, {
       ...req.body.campground,
     });
     req.flash("success", "Successfully updated the campground!");

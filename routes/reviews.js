@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const catchAsync = require("../utils/catchAsync");
-const { reviewSchema } = require("../schemas.js");
 const ExpressError = require("../utils/ExpressError");
 const Campground = require("../models/campground");
 const Review = require("../models/review");
 
-const { validateReview, isLoggedIn } = require("../middleware");
+const { validateReview, isLoggedIn, isReviewAuthor } = require("../middleware");
 
 router.post(
   "/",
@@ -27,6 +26,8 @@ router.post(
 // Here we wanna remove the reference to the review and the review itself
 router.delete(
   "/:reviewId",
+  isLoggedIn,
+  isReviewAuthor,
   catchAsync(async (req, res) => {
     const { id, reviewId } = req.params;
     await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
