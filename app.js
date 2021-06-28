@@ -1,3 +1,8 @@
+// if we are in devolopment environment then it's gonna add my variables in .env and add them to process.env in our node app
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
+
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
