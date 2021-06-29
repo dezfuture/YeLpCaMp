@@ -9,18 +9,12 @@ const upload = multer({ storage: storage });
 
 const Campground = require("../models/campground");
 
-router
-  .route("/")
-  .get(catchAsync(campgrounds.index))
-  // .post(
-  //   isLoggedIn,
-  //   validateCampground,
-  //   catchAsync(campgrounds.createCampground)
-  // );
-  .post(upload.array("image"), (req, res) => {
-    console.log(req.body, req.files);
-    res.send("IT WORKED");
-  });
+router.route("/").get(catchAsync(campgrounds.index)).post(
+  isLoggedIn,
+  upload.array("image"), //added the upload logic as a middleware
+  validateCampground,
+  catchAsync(campgrounds.createCampground)
+);
 
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
