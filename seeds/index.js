@@ -29,10 +29,20 @@ const seedDB = async () => {
       location: `${cities[random1000].city}, ${cities[random1000].state}`,
       title: `${sample(descriptors)} ${sample(places)}`,
       // ye 1600x900 hta bhi skte ho, here we have used the unsplash API
-      image: "http://source.unsplash.com/collection/483251",
+      // image: "http://source.unsplash.com/collection/483251",
       description:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
       price,
+      images: [
+        {
+          url: "https://res.cloudinary.com/dokje7ogf/image/upload/v1624959705/YeLpCaMp/r5ecbr0dhbxw1p2fnedy.jpg",
+          filename: "YeLpCaMp/r5ecbr0dhbxw1p2fnedy",
+        },
+        {
+          url: "https://res.cloudinary.com/dokje7ogf/image/upload/v1624959706/YeLpCaMp/dyphhdhkvxh9cxlwpbrf.jpg",
+          filename: "YeLpCaMp/dyphhdhkvxh9cxlwpbrf",
+        },
+      ],
     });
     await camp.save();
   }
